@@ -1,0 +1,7 @@
+export const LOAD_UNITS_LOADING = 'REDUX_SAGA_LOAD_UNITS_LOADING';
+export const LOAD_UNITS_SUCCESS = 'REDUX_SAGA_LOAD_UNITS_SUCCESS';
+export const LOAD_UNITS_ERROR = 'REDUX_SAGA_LOAD_UNITS_ERROR';
+
+export const loadUnits = () => ({
+  type: LOAD_UNITS_LOADING,
+});

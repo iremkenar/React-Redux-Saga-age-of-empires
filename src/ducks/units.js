@@ -7,15 +7,15 @@ export const getUnitsAction = () => ({
 
 //Initial State
 const initialState = {
-  units: [],
+  unitsData: [],
 };
 
 // Reducers
-export default (state = initialState, action) => {
+export function unitsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_UNITS_DATA:
-      return { ...state, units: state.push() };
+      return { ...state };
     default:
       return state;
   }
-};
+}

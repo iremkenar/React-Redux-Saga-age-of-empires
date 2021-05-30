@@ -1,10 +1,27 @@
-import { combineReducers, createStore } from 'redux';
-import unitsReducer from './ducks/units';
+import { createStore, applyMiddleware, compose } from 'redux';
+import rootReducer from './rootReducer';
+import createSagaMiddleware from 'redux-saga';
+import unitsSaga from '../redux-saga/sagas';
 
-const reducer = combineReducers({
-  units: unitsReducer,
-});
+// create the saga middleware
+const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(reducer);
+export function configureStore(initialState) {
+  const middleware = [sagaMiddleware];
 
-export default store;
+  const composeEnhancers =
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  // mount it on the Store
+  const store = createStore(
+    rootReducer,
+    initialState,
+    composeEnhancers(applyMiddleware(...middleware))
+  );
+
+  // then run the saga
+  sagaMiddleware.run(unitsSaga);
+
+  // render the application
+
+  return store;
+}
