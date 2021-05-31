@@ -1,9 +1,9 @@
 import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 import {
-  // loadUnits,
   LOAD_UNITS_ERROR,
   LOAD_UNITS_LOADING,
   LOAD_UNITS_SUCCESS,
+  GET_UNIT_DETAIL,
 } from './actions';
 import Api from '../api';
 
@@ -12,22 +12,28 @@ async function fetchAsync(func) {
   if (response.ok) {
     return await response.json();
   }
-  throw new Error('Unexpected error!!!');
+  throw new Error('Unexpected error!');
 }
-function* fetchUnit() {
+
+//worker saga
+function* fetchUnits() {
   try {
     const units = yield fetchAsync(Api.getUnits);
 
     yield put({ type: LOAD_UNITS_SUCCESS, data: units });
+    yield put({ type: GET_UNIT_DETAIL, data: units });
   } catch (e) {
     yield put({ type: LOAD_UNITS_ERROR, error: e.message });
   }
 }
 
-export function* unitsSaga() {
+//watcher saga
+export function* rootSaga() {
   // Allows concurrent fetches of units
-  yield takeEvery(LOAD_UNITS_LOADING, fetchUnit);
+  yield takeEvery(LOAD_UNITS_LOADING, fetchUnits);
   // Does not allow concurrent fetches of units   //
-  yield takeLatest(LOAD_UNITS_LOADING, fetchUnit);
+  yield takeLatest(LOAD_UNITS_LOADING, fetchUnits);
+  yield takeLatest(GET_UNIT_DETAIL, fetchUnits);
 }
-export default unitsSaga;
+
+export default rootSaga;

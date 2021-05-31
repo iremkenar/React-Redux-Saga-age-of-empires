@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from './rootReducer';
 import createSagaMiddleware from 'redux-saga';
-import unitsSaga from '../redux-saga/sagas';
+import rootSaga from '../redux-saga/sagas';
 
 // create the saga middleware
 const sagaMiddleware = createSagaMiddleware();
@@ -19,7 +19,7 @@ export function configureStore(initialState) {
   );
 
   // then run the saga
-  sagaMiddleware.run(unitsSaga);
+  sagaMiddleware.run(rootSaga);
 
   // render the application
 

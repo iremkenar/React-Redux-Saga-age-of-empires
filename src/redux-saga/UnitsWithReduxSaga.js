@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { loadUnits } from './actions';
+import { Link } from 'react-router-dom';
+import Table from 'react-bootstrap/Table';
+import '../App.scss';
 
 class UnitsWithReduxSaga extends React.Component {
   componentDidMount() {
@@ -35,26 +38,30 @@ class UnitsWithReduxSaga extends React.Component {
       return <div style={{ color: 'red' }}>ERROR: {this.props.error}</div>;
     }
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Costs</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.props.data.map((el) => (
-            <tr key={el.id}>
-              <td>{el.id}</td>
-              <td>{el.name}</td>
-              <td>{el.age}</td>
-              <td>{this.filterCost(el.cost)}</td>
+      <div className="table-container">
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Costs</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {this.props.data.map((el) => (
+              <tr key={el.id}>
+                <td>{el.id}</td>
+                <Link to={`/unitDetailPage/${el.id}`}>
+                  <td>{el.name}</td>
+                </Link>
+                <td>{el.age}</td>
+                <td>{this.filterCost(el.cost)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
     );
   }
 }
