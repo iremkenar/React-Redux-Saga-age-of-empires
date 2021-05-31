@@ -1,79 +1,79 @@
-import * as React from 'react';
+import { React, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getUnitDetailAction } from './actions';
 import Table from 'react-bootstrap/Table';
 import '../App.scss';
 
-class UnitDetailWithReduxSaga extends React.Component {
-  componentDidMount() {
-    this.props.getUnitDetailAction();
-  }
+function UnitDetailWithReduxSaga(props) {
+  useEffect(() => {
+    props.getUnitDetailAction();
+  }, []);
 
-  render() {
-    const unit = this.props.data.filter(
-      (el) => el.id === +this.props.match.params.id
-    );
+  const getUnitDetail = (props) => {
+    return props.data.filter((el) => el.id === +props.match.params.id);
+  };
 
-    return (
-      <div>
-        <h1>Unit Detail Page</h1>
-        <div className="table-container">
-          <Table striped bordered hover>
-            <tbody>
-              <tr>
-                <td>ID:</td>
-                <td>{unit[0].id}</td>
-              </tr>
-              <tr>
-                <td>Name:</td>
-                <td>{unit[0].name}</td>
-              </tr>
-              <tr>
-                <td>Description:</td>
-                <td>{unit[0].description}</td>
-              </tr>
-              <tr>
-                <td>Min. Required Age:</td>
-                <td>{unit[0].age}</td>
-              </tr>
-              <tr>
-                <td>Wood Cost</td>
-                <td>{unit[0].cost.Wood}</td>
-              </tr>
-              <tr>
-                <td>Food Cost</td>
-                <td>{unit[0].cost.Food}</td>
-              </tr>
-              <tr>
-                <td>Gold Cost</td>
-                <td>{unit[0].cost.Gold}</td>
-              </tr>
-              <tr>
-                <td>Build Time</td>
-                <td>{unit[0].build_time}</td>
-              </tr>
-              <tr>
-                <td>Reload Time</td>
-                <td>{unit[0].reload_time}</td>
-              </tr>
-              <tr>
-                <td>Hit Points</td>
-                <td>{unit[0].hit_points}</td>
-              </tr>
-              <tr>
-                <td>Attack</td>
-                <td>{unit[0].attack}</td>
-              </tr>
-              <tr>
-                <td>Accuracy</td>
-                <td>{unit[0].accuracy}</td>
-              </tr>
-            </tbody>
-          </Table>
-        </div>
+  const unit = getUnitDetail(props);
+
+  return (
+    <div>
+      <h1>Unit Detail Page</h1>
+      <div className="table-container">
+        <Table striped bordered hover>
+          <tbody>
+            <tr>
+              <td>ID:</td>
+              <td>{unit[0].id}</td>
+            </tr>
+            <tr>
+              <td>Name:</td>
+              <td>{unit[0].name}</td>
+            </tr>
+            <tr>
+              <td>Description:</td>
+              <td>{unit[0].description}</td>
+            </tr>
+            <tr>
+              <td>Min. Required Age:</td>
+              <td>{unit[0].age}</td>
+            </tr>
+            <tr>
+              <td>Wood Cost</td>
+              <td>{unit[0].cost?.Wood}</td>
+            </tr>
+            <tr>
+              <td>Food Cost</td>
+              <td>{unit[0].cost?.Food}</td>
+            </tr>
+            <tr>
+              <td>Gold Cost</td>
+              <td>{unit[0].cost?.Gold}</td>
+            </tr>
+            <tr>
+              <td>Build Time</td>
+              <td>{unit[0].build_time}</td>
+            </tr>
+            <tr>
+              <td>Reload Time</td>
+              <td>{unit[0].reload_time}</td>
+            </tr>
+            <tr>
+              <td>Hit Points</td>
+              <td>{unit[0].hit_points}</td>
+            </tr>
+            <tr>
+              <td>Attack</td>
+              <td>{unit[0].attack}</td>
+            </tr>
+            <tr>
+              <td>Accuracy</td>
+              <td>{unit[0].accuracy}</td>
+            </tr>
+          </tbody>
+        </Table>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 const mapStateToProps = (state) => ({
@@ -87,7 +87,7 @@ export default connect(
   mapDispatchToProps
 )(UnitDetailWithReduxSaga);
 
-//With React Hooks
+//*********************************With React Hooks**********************//
 
 // import React, { useState, useEffect } from 'react';
 // import Table from 'react-bootstrap/Table';
@@ -175,3 +175,94 @@ export default connect(
 // };
 
 // export default UnitDetailPage;
+
+//*****************************With class component**********************//
+
+// import * as React from 'react';
+// import { connect } from 'react-redux';
+// import { getUnitDetailAction } from './actions';
+// import Table from 'react-bootstrap/Table';
+// import '../App.scss';
+
+// class UnitDetailWithReduxSaga extends React.Component {
+//   componentDidMount() {
+//     this.props.getUnitDetailAction();
+//   }
+
+//   render() {
+//     const unit = this.props.data.filter(
+//       (el) => el.id === +this.props.match.params.id
+//     );
+
+//     return (
+//       <div>
+//         <h1>Unit Detail Page</h1>
+//         <div className="table-container">
+//           <Table striped bordered hover>
+//             <tbody>
+//               <tr>
+//                 <td>ID:</td>
+//                 <td>{unit[0].id}</td>
+//               </tr>
+//               <tr>
+//                 <td>Name:</td>
+//                 <td>{unit[0].name}</td>
+//               </tr>
+//               <tr>
+//                 <td>Description:</td>
+//                 <td>{unit[0].description}</td>
+//               </tr>
+//               <tr>
+//                 <td>Min. Required Age:</td>
+//                 <td>{unit[0].age}</td>
+//               </tr>
+//               <tr>
+//                 <td>Wood Cost</td>
+//                 <td>{unit[0].cost.Wood}</td>
+//               </tr>
+//               <tr>
+//                 <td>Food Cost</td>
+//                 <td>{unit[0].cost.Food}</td>
+//               </tr>
+//               <tr>
+//                 <td>Gold Cost</td>
+//                 <td>{unit[0].cost.Gold}</td>
+//               </tr>
+//               <tr>
+//                 <td>Build Time</td>
+//                 <td>{unit[0].build_time}</td>
+//               </tr>
+//               <tr>
+//                 <td>Reload Time</td>
+//                 <td>{unit[0].reload_time}</td>
+//               </tr>
+//               <tr>
+//                 <td>Hit Points</td>
+//                 <td>{unit[0].hit_points}</td>
+//               </tr>
+//               <tr>
+//                 <td>Attack</td>
+//                 <td>{unit[0].attack}</td>
+//               </tr>
+//               <tr>
+//                 <td>Accuracy</td>
+//                 <td>{unit[0].accuracy}</td>
+//               </tr>
+//             </tbody>
+//           </Table>
+//         </div>
+//       </div>
+//     );
+//   }
+// }
+
+// const mapStateToProps = (state) => ({
+//   data: state.reduxSaga.data,
+// });
+
+// const mapDispatchToProps = { getUnitDetailAction };
+
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(UnitDetailWithReduxSaga);
