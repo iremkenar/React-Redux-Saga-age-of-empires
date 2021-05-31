@@ -4,6 +4,7 @@ import {
   LOAD_UNITS_LOADING,
   LOAD_UNITS_SUCCESS,
   GET_UNIT_DETAIL,
+  FILTER_UNIT,
 } from './actions';
 import Api from '../api';
 
@@ -22,6 +23,7 @@ function* fetchUnits() {
 
     yield put({ type: LOAD_UNITS_SUCCESS, data: units });
     yield put({ type: GET_UNIT_DETAIL, data: units });
+    yield put({ type: FILTER_UNIT, data: units });
   } catch (e) {
     yield put({ type: LOAD_UNITS_ERROR, error: e.message });
   }
@@ -34,6 +36,7 @@ export function* rootSaga() {
   // Does not allow concurrent fetches of units   //
   yield takeLatest(LOAD_UNITS_LOADING, fetchUnits);
   yield takeLatest(GET_UNIT_DETAIL, fetchUnits);
+  yield takeLatest(FILTER_UNIT, fetchUnits);
 }
 
 export default rootSaga;

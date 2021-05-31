@@ -3,9 +3,10 @@ import {
   LOAD_UNITS_LOADING,
   LOAD_UNITS_SUCCESS,
   GET_UNIT_DETAIL,
+  FILTER_UNIT,
 } from './actions';
 
-const initialState = { data: [], loading: false, error: '' };
+const initialState = { data: [], filteredTable: [], loading: false, error: '' };
 
 export default function reduxSagaReducer(state = initialState, action) {
   switch (action.type) {
@@ -21,6 +22,11 @@ export default function reduxSagaReducer(state = initialState, action) {
     case GET_UNIT_DETAIL:
       return {
         ...state,
+      };
+    case FILTER_UNIT:
+      return {
+        ...state,
+        filteredTable: action.data,
       };
     default: {
       return state;
