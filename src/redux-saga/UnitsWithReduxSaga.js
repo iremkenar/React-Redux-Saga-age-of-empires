@@ -25,22 +25,13 @@ function UnitsWithReduxSaga(props) {
 
   const filterCost = (cost) => {
     let costStr = '';
-    if (cost?.Wood) {
-      costStr = `Wood: ${cost.Wood}`;
+    if (cost) {
+      costStr = Object.entries(cost)?.reduce(
+        (acc, [key, value]) => `${acc} ${key}:${value}`,
+        ''
+      );
     }
-    if (cost?.Food) {
-      costStr =
-        costStr?.length > 0
-          ? `${costStr}, Food: ${cost.Food}`
-          : `Food: ${cost.Food}`;
-    }
-    if (cost?.Gold) {
-      costStr =
-        costStr?.length > 0
-          ? `${costStr}, Gold: ${cost.Gold}`
-          : `Gold: ${cost.Gold}`;
-    }
-    return costStr ? costStr : 'No cost';
+    return costStr;
   };
 
   return (
